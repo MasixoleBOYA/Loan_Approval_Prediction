@@ -26,12 +26,6 @@ print(f"\nData shape (After cleaning: {doc.shape}")
 print(f"\nData head (After cleaing):\n {doc.head()}")
 print(f"\nStatistical measures (After cleaning):\n {doc.describe()}")
 
-# Correlation heatmap matrix
-plt.figure(figsize=(5, 4))
-sns.heatmap(doc.corr(), annot=True, cmap="coolwarm", linewidths=0.5)
-plt.title("Correlation Matrix Heatmap")
-# plt.show()
-
 #cast the dtypes into a list of tuples
 dtypes_tuple = [(column, dtype) for column, dtype in zip(doc.columns, doc.dtypes)]
 
@@ -40,10 +34,17 @@ print(f"\ncategorical columns : \n {categorical_columns}")
 
 encoder = LabelEncoder()
 
-#Applying LabelEncoder to the categorical columns
+#Applying LabelEncoder to the categorical features
 for j in categorical_columns:
     doc[j] = encoder.fit_transform(doc[j])
 
+# Correlation heatmap matrix
+plt.figure(figsize=(10, 8))
+sns.heatmap(doc.corr(), annot=True, cmap="coolwarm", linewidths=0.5)
+plt.title("Correlation Matrix Heatmap")
+# plt.show()
+
+#Splitting the data
 X = doc.drop(columns="Loan_Status") #features
 y = doc["Loan_Status"] #labels
 
