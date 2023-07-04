@@ -30,7 +30,7 @@ print(f"\nStatistical measures (After cleaning):\n {doc.describe()}")
 plt.figure(figsize=(5, 4))
 sns.heatmap(doc.corr(), annot=True, cmap="coolwarm", linewidths=0.5)
 plt.title("Correlation Matrix Heatmap")
-plt.show()
+# plt.show()
 
 #cast the dtypes into a list of tuples
 dtypes_tuple = [(column, dtype) for column, dtype in zip(doc.columns, doc.dtypes)]
@@ -72,3 +72,11 @@ print(f"\nprecision score: {round(precision,3)}")
 print(f"recall score: {round(sensitivity,3)}")
 print(f"f1 score: {round(f1,3)}")
 print(f"\nconfusin matrix : \n {conf_matrix}")
+
+# Plot the confusion matrix using seaborn
+plt.figure(figsize=(4, 3))
+sns.heatmap(conf_matrix, annot=True, cmap="Blues", fmt="d")
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted labels")
+plt.ylabel("True labels")
+plt.show()
